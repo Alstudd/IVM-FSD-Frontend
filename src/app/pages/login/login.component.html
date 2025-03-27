@@ -1,0 +1,55 @@
+<div class="login-container">
+    <div class="login-card">
+      <h2>Inventory Management System</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+        <!-- Username Input -->
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input 
+            type="text" 
+            id="username" 
+            formControlName="username" 
+            [class.invalid]="username?.invalid && (username?.dirty || username?.touched)"
+          >
+          <div *ngIf="username?.invalid && (username?.dirty || username?.touched)" class="error-message">
+            <small *ngIf="username?.errors?.['required']">Username is required</small>
+            <small *ngIf="username?.errors?.['minlength']">Username must be at least 3 characters</small>
+          </div>
+        </div>
+  
+        <!-- Password Input -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input 
+            type="password" 
+            id="password" 
+            formControlName="password"
+            [class.invalid]="password?.invalid && (password?.dirty || password?.touched)"
+          >
+          <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="error-message">
+            <small *ngIf="password?.errors?.['required']">Password is required</small>
+            <small *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters</small>
+          </div>
+        </div>
+  
+        <!-- Login Error Message -->
+        <div *ngIf="loginError" class="login-error">
+          Invalid username or password. Please try again.
+        </div>
+  
+        <!-- Submit Button -->
+        <button 
+          type="submit" 
+          [disabled]="loginForm.invalid || isLoading"
+          class="login-button"
+        >
+          {{ isLoading ? 'Logging in...' : 'Login' }}
+        </button>
+  
+        <!-- Forgot Password Link -->
+        <div class="forgot-password">
+          <a href="/forgot-password">Forgot Password?</a>
+        </div>
+      </form>
+    </div>
+  </div>

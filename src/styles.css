@@ -1,1 +1,95 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  /* Color Palette */
+  --primary-color: #ff6b00; /* Vibrant Orange */
+  --primary-light: #ffa041;
+  --primary-dark: #d95400;
+
+  --secondary-color: #2196f3; /* Modern Blue */
+  --secondary-light: #64b5f6;
+  --secondary-dark: #1976d2;
+
+  --background-color: #f4f4f4;
+  --text-color: #333;
+  --text-light: #666;
+
+  /* Typography */
+  --font-family: "Roboto", "Helvetica Neue", sans-serif;
+  --font-size-base: 16px;
+
+  /* Spacing */
+  --spacing-small: 8px;
+  --spacing-medium: 16px;
+  --spacing-large: 24px;
+
+  /* Transitions */
+  --transition-speed: 0.3s;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Utility Classes */
+.btn {
+  display: inline-block;
+  padding: var(--spacing-small) var(--spacing-medium);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+}
+
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: var(--spacing-medium);
+  margin-bottom: var(--spacing-medium);
+}
+
+.animate-fade {
+  animation: fadeIn var(--transition-speed) ease-out;
+}
+
+.animate-slide {
+  animation: slideIn 0.6s ease-out;
+}
