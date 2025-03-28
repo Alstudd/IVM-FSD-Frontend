@@ -1,3 +1,32 @@
-<p>app works!</p>
-
-<router-outlet />
+<nav class="navbar">
+    <a href="/" class="navbar-logo">
+      <img src="/logo.png" alt="Logo" />
+      IVM
+    </a>
+  
+    <div class="navbar-menu">
+      <a href="/" class="navbar-link">Home</a>
+      <a href="/dashboard" class="navbar-link">Dashboard</a>
+      <a href="#" class="navbar-link">Reports</a>
+      <a href="#" class="navbar-link">Settings</a>
+      
+      <!-- Conditional rendering for login/user avatar -->
+      <ng-container *ngIf="!isLoggedIn; else userSection">
+        <a href="/login" class="navbar-cta">Login</a>
+      </ng-container>
+      
+      <ng-template #userSection>
+        <app-user-avatar></app-user-avatar>
+      </ng-template>
+    </div>
+  
+    <div class="navbar-mobile-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+  
+  <div style="margin-top: 100px;">
+      <router-outlet />
+  </div>

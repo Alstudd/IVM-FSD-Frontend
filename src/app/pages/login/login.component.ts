@@ -3,14 +3,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  imports: [
-    ReactiveFormsModule,
-  ],
+  imports: [ReactiveFormsModule, CommonModule],
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -23,14 +22,8 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) {
     this.loginForm = this.fb.group({
-      username: ['', [
-        Validators.required, 
-        Validators.minLength(3)
-      ]],
-      password: ['', [
-        Validators.required, 
-        Validators.minLength(6)
-      ]]
+      username: ['', [Validators.required, Validators.minLength(3)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
@@ -51,30 +44,33 @@ export class LoginComponent implements OnInit {
 
     const { username, password } = this.loginForm.value;
 
-    this.authService.login({ username, password })
-      .subscribe({
-        next: (user) => {
-          this.isLoading = false;
-          if (user) {
-            // Redirect based on user role
-            const roles = user.roles || [];
-            if (roles.includes('ADMIN') || roles.includes('MANAGER')) {
-              this.router.navigate(['/dashboard']);
-            } else {
-              this.router.navigate(['/request']);
-            }
+    this.authService.login({ username, password }).subscribe({
+      next: (user) => {
+        this.isLoading = false;
+        if (user) {
+          // Redirect based on user role
+          const role = user.role;
+          if (role == 'ADMIN' || role == 'MANAGER') {
+            this.router.navigate(['/dashboard']);
           } else {
-            this.loginError = true;
+            this.router.navigate(['/request']);
           }
-        },
-        error: () => {
-          this.isLoading = false;
+        } else {
           this.loginError = true;
         }
-      });
+      },
+      error: () => {
+        this.isLoading = false;
+        this.loginError = true;
+      },
+    });
   }
 
   // Convenience getters for easy access in template
-  get username() { return this.loginForm.get('username'); }
-  get password() { return this.loginForm.get('password'); }
+  get username() {
+    return this.loginForm.get('username');
+  }
+  get password() {
+    return this.loginForm.get('password');
+  }
 }

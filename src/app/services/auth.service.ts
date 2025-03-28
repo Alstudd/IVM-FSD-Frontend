@@ -7,7 +7,7 @@ export interface User {
   id?: number;
   username: string;
   email: string;
-  roles: string[];
+  role: string;
 }
 
 export interface LoginRequest {
@@ -64,17 +64,16 @@ export class AuthService {
   }
 
   // Get user roles
-  getUserRoles(): string[] {
-    return this.currentUserSubject.value?.roles || [];
+  getUserRole(): string {
+    return this.currentUserSubject.value?.role || '';
   }
-
   // Check if user has specific role
   hasRole(role: string): boolean {
-    return this.getUserRoles().includes(role);
+    return this.getUserRole().includes(role.toUpperCase()); // Ensure case matching
   }
 
   // Register new user
-  register(user: Omit<User, 'id' | 'roles'>): Observable<User> {
+  register(user: Omit<User, 'id' | 'role'>): Observable<User> {
     return this.http.post<User>(`${this.apiUrl}/register`, user);
   }
 

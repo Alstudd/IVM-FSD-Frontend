@@ -1,28 +1,10 @@
 :root {
-  /* Color Palette */
-  --primary-color: #ff6b00; /* Vibrant Orange */
-  --primary-light: #ffa041;
-  --primary-dark: #d95400;
-
-  --secondary-color: #2196f3; /* Modern Blue */
-  --secondary-light: #64b5f6;
-  --secondary-dark: #1976d2;
-
-  --background-color: #f4f4f4;
-  --text-color: #333;
-  --text-light: #666;
-
-  /* Typography */
+  --primary-orange: #ff6b00;
+  --primary-orange-light: #ff8c33;
+  --primary-orange-dark: #e55b00;
+  --background-dark: #1a1a1a;
+  --text-light: #f4f4f4;
   --font-family: "Roboto", "Helvetica Neue", sans-serif;
-  --font-size-base: 16px;
-
-  /* Spacing */
-  --spacing-small: 8px;
-  --spacing-medium: 16px;
-  --spacing-large: 24px;
-
-  /* Transitions */
-  --transition-speed: 0.3s;
 }
 
 * {
@@ -33,63 +15,145 @@
 
 body {
   font-family: var(--font-family);
-  background-color: var(--background-color);
-  color: var(--text-color);
-  line-height: 1.6;
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 3rem;
+  background: linear-gradient(
+    135deg,
+    var(--primary-orange),
+    var(--primary-orange-dark)
+  );
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
 }
 
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-light);
+  text-decoration: none;
+  transform: scale(1);
+  transition: transform 0.2s ease;
 }
 
-/* Utility Classes */
-.btn {
-  display: inline-block;
-  padding: var(--spacing-small) var(--spacing-medium);
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all var(--transition-speed) ease;
+.navbar-logo:hover {
+  transform: scale(1.05);
 }
 
-.btn-primary {
-  background-color: var(--primary-color);
-  color: white;
+.navbar-logo img {
+  height: 40px;
+  margin-right: 10px;
 }
 
-.btn-primary:hover {
-  background-color: var(--primary-dark);
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
 }
 
-.card {
+.navbar-link {
+  color: var(--text-light);
+  text-decoration: none;
+  position: relative;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+}
+
+.navbar-link::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 50%;
+  background-color: var(--text-light);
+  transition: all 0.3s ease;
+}
+
+.navbar-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.navbar-link:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+.navbar-cta {
+  background-color: var(--text-light);
+  color: var(--primary-orange);
+  padding: 0.6rem 1.2rem;
+  border-radius: 25px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+}
+
+.navbar-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
   background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: var(--spacing-medium);
-  margin-bottom: var(--spacing-medium);
 }
 
-.animate-fade {
-  animation: fadeIn var(--transition-speed) ease-out;
+.navbar-mobile-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
 }
 
-.animate-slide {
-  animation: slideIn 0.6s ease-out;
+.navbar-mobile-toggle span {
+  height: 3px;
+  width: 25px;
+  background-color: var(--text-light);
+  margin: 3px 0;
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .navbar-menu {
+    display: none;
+  }
+
+  .navbar-mobile-toggle {
+    display: flex;
+  }
+}
+
+.navbar-user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar-username {
+  color: var(--text-light);
+  font-weight: 500;
+  margin-right: 0.5rem;
+}
+
+.navbar-logout {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--text-light);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.navbar-logout:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
 }
