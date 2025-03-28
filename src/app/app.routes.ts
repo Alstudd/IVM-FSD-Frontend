@@ -10,6 +10,9 @@ import { ItemListComponent } from './pages/item-list/item-list.component';
 import { ItemAddComponent } from './pages/item-add/item-add.component';
 import { ItemUpdateComponent } from './pages/item-update/item-update.component';
 import { ItemDetailComponent } from './shared/components/item-detail/item-detail.component';
+import { ItemRequestListComponent } from './pages/item-request-list/item-request-list.component';
+import { ItemRequestAddComponent } from './pages/item-request-add/item-request-add.component';
+import { ItemRequestUpdateComponent } from './pages/item-request-update/item-request-update.component';
 
 export const routes: Routes = [
   { 
@@ -47,6 +50,11 @@ export const routes: Routes = [
     component: ItemListComponent,
     canActivate: [AuthGuard]
   },
+  {
+    path: 'item-requests',
+    component: ItemRequestListComponent,
+    canActivate: [AuthGuard]
+  },
   { 
     path: 'item-detail/:id', 
     component: ItemDetailComponent, 
@@ -64,9 +72,16 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     data: { role: ['MANAGER', 'ADMIN'] }
   },
-  // { 
-  //   path: 'item-detail/:id', 
-  //   component: ItemDetailComponent, 
-  //   canActivate: [AuthGuard] 
-  // },
+  {
+    path: 'add-item-request',
+    component: ItemRequestAddComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['MANAGER', 'ADMIN'] }
+  },
+  {
+    path: 'update-item-request/:id',
+    component: ItemRequestUpdateComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['MANAGER', 'ADMIN'] }
+  },
 ];

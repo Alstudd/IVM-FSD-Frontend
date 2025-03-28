@@ -63,6 +63,11 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
+  // Get user name
+  getUserName(): string {
+    return this.currentUserSubject.value?.username || '';
+  }
+
   // Get user roles
   getUserRole(): string {
     return this.currentUserSubject.value?.role || '';
