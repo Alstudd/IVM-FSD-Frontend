@@ -9,26 +9,23 @@ import { LucideAngularModule } from 'lucide-angular';
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet, 
-    RouterLink, 
-    CommonModule, 
+    RouterOutlet,
+    RouterLink,
+    CommonModule,
     UserAvatarComponent,
-    LucideAngularModule
+    LucideAngularModule,
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
   title = 'IVM-FSD-Frontend';
   currentUser: User | null = null;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    this.authService.currentUser.subscribe(user => {
+    this.authService.currentUser.subscribe((user) => {
       this.currentUser = user;
     });
   }

@@ -1,1 +1,135 @@
-<p>hero works!</p>
+<!-- HERO SECTION -->
+<div style="margin-top: -100px;" class="hero-section" [ngClass]="{ 'hero-fade': isScrolled }">
+  <div class="overlay"></div>
+  <div class="hero-content">
+    <h1 class="hero-title">Cultural Fest Inventory Management</h1>
+    <p class="hero-subtitle">
+      Seamlessly manage, track, and request inventory items for our college's
+      cultural fest
+    </p>
+    <div class="hero-buttons">
+      <button class="btn btn-primary" (click)="navigateTo('item-requests')">
+        <div class="btn-icon">📋</div>
+        Request Item
+      </button>
+      <button style="color: white; border: 1px solid #ffffff;" class="btn btn-secondary" (click)="navigateTo('items')">
+        <div class="btn-icon">📦</div>
+        Access Inventory
+      </button>
+      <button
+        class="btn btn-tertiary"
+        (click)="navigateTo('dashboard')"
+        *ngIf="hasAccess"
+      >
+        <div class="btn-icon">📊</div>
+        View Dashboard
+      </button>
+    </div>
+  </div>
+  <div class="hero-scroll-indicator" (click)="scrollToFeatures()">
+    <span class="scroll-text">Explore Features</span>
+    <i-lucide name="chevron-down" class="scroll-icon"></i-lucide>
+  </div>
+</div>
+
+<!-- FEATURES SECTION -->
+<div class="features-section" id="features-section">
+  <div class="container">
+    <h2 class="section-title">System Features</h2>
+    <p class="section-subtitle">
+      Everything you need to manage your cultural fest inventory
+    </p>
+
+    <div class="features-grid">
+      <div
+        class="feature-card"
+        *ngFor="let feature of features; let i = index"
+        [ngClass]="{ 'feature-appear': isFeatureVisible[i] }"
+      >
+      <div class="feature-icon">
+        {{ feature.icon }}
+      </div>
+        <h3 class="feature-title">{{ feature.title }}</h3>
+        <p class="feature-description">{{ feature.description }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WORKFLOW SECTION -->
+<div class="workflow-section">
+  <div class="container">
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-subtitle">Our simple and intuitive workflow</p>
+
+    <div class="workflow-steps">
+      <div
+        class="workflow-step"
+        *ngFor="let step of workflowSteps; let i = index"
+        [ngClass]="{ 'step-appear': isStepVisible[i] }"
+      >
+        <div class="step-number">{{ i + 1 }}</div>
+        <div class="step-content">
+          <div class="step-icon">
+            <div class="step-lucide-icon">{{ step.icon }}</div>
+          </div>
+          <h3 class="step-title">{{ step.title }}</h3>
+          <p class="step-description">{{ step.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS SECTION -->
+<div class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div
+        class="stat-card"
+        *ngFor="let stat of stats; let i = index"
+        [ngClass]="{ 'stat-appear': isStatVisible[i] }"
+      >
+        <div class="stat-icon">
+          <div>{{ stat.icon }}</div>
+        </div>
+        <div class="stat-value">{{ stat.value }}</div>
+        <div class="stat-label">{{ stat.label }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA SECTION -->
+<div class="cta-section">
+  <div class="container">
+    <div class="cta-content">
+      <h2 class="cta-title">Ready to get started?</h2>
+      <p class="cta-text">
+        Jump right in and start managing your inventory for the cultural fest
+      </p>
+      <div class="cta-buttons">
+        <button
+          class="btn btn-primary btn-large"
+          (click)="navigateTo('dashboard')"
+        >
+          <i-lucide name="layout-dashboard" class="btn-icon"></i-lucide>
+          Go to Dashboard
+        </button>
+        <button
+          class="btn btn-secondary btn-large"
+          (click)="navigateTo('item-requests')"
+        >
+          <i-lucide name="clipboard-list" class="btn-icon"></i-lucide>
+          Request Items
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LOADING OVERLAY -->
+<div class="loading-overlay" *ngIf="isLoading">
+  <div class="spinner"></div>
+  <p>Loading...</p>
+</div>

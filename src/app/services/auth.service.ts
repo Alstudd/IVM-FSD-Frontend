@@ -5,8 +5,9 @@ import { map, catchError } from 'rxjs/operators';
 
 export interface User {
   id?: number;
+  name: string;
   username: string;
-  email: string;
+  department: string;
   role: string;
 }
 
@@ -16,7 +17,7 @@ export interface LoginRequest {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private currentUserSubject: BehaviorSubject<User | null>;
@@ -33,13 +34,13 @@ export class AuthService {
   // Login method
   login(credentials: LoginRequest): Observable<User> {
     return this.http.post<User>(`${this.apiUrl}/login`, credentials).pipe(
-      map(user => {
+      map((user) => {
         // Store user details in local storage
         localStorage.setItem('currentUser', JSON.stringify(user));
         this.currentUserSubject.next(user);
         return user;
       }),
-      catchError(error => {
+      catchError((error) => {
         console.error('Login failed', error);
         return of(null as any);
       })

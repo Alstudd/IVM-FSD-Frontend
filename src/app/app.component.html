@@ -1,32 +1,32 @@
 <nav class="navbar">
-    <a href="/" class="navbar-logo">
-      <img src="/logo.png" alt="Logo" />
-      IVM
-    </a>
-  
-    <div class="navbar-menu">
-      <a href="/dashboard" class="navbar-link">Dashboard</a>
-      <a href="/items" class="navbar-link">Items</a>
-      <a href="/item-requests" class="navbar-link">Requests</a>
-      <a href="/users" class="navbar-link">Users</a>
-      
-      <!-- Conditional rendering for login/user avatar -->
-      <ng-container *ngIf="!isLoggedIn; else userSection">
-        <a href="/login" class="navbar-cta">Login</a>
-      </ng-container>
-      
-      <ng-template #userSection>
-        <app-user-avatar></app-user-avatar>
-      </ng-template>
-    </div>
-  
-    <div class="navbar-mobile-toggle">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </nav>
-  
-  <div style="margin-top: 100px;">
-      <router-outlet />
+  <a href="/" class="navbar-logo">
+    <img src="/logo.png" alt="Logo" />
+    IVM
+  </a>
+
+  <div class="navbar-menu">
+    <a href="/dashboard" class="navbar-link">Dashboard</a>
+    <a href="/items" class="navbar-link">Items</a>
+    <a href="/item-requests" class="navbar-link">Requests</a>
+    <a href="/users" class="navbar-link">Users</a>
+
+    <!-- Conditional rendering for login/user avatar -->
+    <ng-container *ngIf="!isLoggedIn; else userSection">
+      <a href="/login" class="navbar-cta">Login</a>
+    </ng-container>
+
+    <ng-template #userSection>
+      <app-user-avatar></app-user-avatar>
+    </ng-template>
   </div>
+
+  <div class="navbar-mobile-toggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</nav>
+
+<div style="margin-top: 100px">
+  <router-outlet />
+</div>

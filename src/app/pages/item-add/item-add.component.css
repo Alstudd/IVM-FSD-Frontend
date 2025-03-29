@@ -2,23 +2,39 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh;
+  min-height: 80vh;
   padding: 1rem;
 }
 
 .add-item-card {
   background-color: white;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(255, 107, 0, 0.08),
+    0 5px 15px rgba(0, 0, 0, 0.05);
+  padding: 2.5rem;
   width: 100%;
-  max-width: 500px;
+  max-width: 550px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.add-item-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(255, 107, 0, 0.12),
+    0 10px 20px rgba(0, 0, 0, 0.07);
 }
 
 .add-item-card h2 {
   text-align: center;
   color: #ff6b00;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.accent-line {
+  height: 4px;
+  width: 80px;
+  background: linear-gradient(90deg, #ff6b00, #ffb347);
+  border-radius: 2px;
+  margin: 0 auto;
 }
 
 .item-form {
@@ -34,6 +50,7 @@
   display: block;
   margin-bottom: 0.5rem;
   color: #333;
+  font-weight: 500;
 }
 
 .form-group input,
@@ -41,7 +58,7 @@
   width: 100%;
   padding: 0.5rem;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 8px;
   transition: border-color 0.3s ease;
 }
 
@@ -63,21 +80,61 @@
 }
 
 .submit-button {
-  background-color: #ff6b00;
+  background: linear-gradient(90deg, #ff6b00, #ff9e45);
   color: white;
   border: none;
-  padding: 0.75rem;
-  border-radius: 4px;
+  padding: 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 1rem;
+  transition: all 0.3s ease;
+  margin-top: 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
 }
 
 .submit-button:hover {
-  background-color: #e55b00;
+  background: linear-gradient(90deg, #ff5500, #ff8c2d);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 107, 0, 0.2);
 }
 
 .submit-button:disabled {
-  background-color: #ccc;
+  background: #cccccc;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Loading spinner */
+.loader {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ffffff;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .add-item-container {
+    padding: 1rem;
+  }
+
+  .add-item-card {
+    padding: 1.5rem;
+  }
 }

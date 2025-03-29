@@ -1,1 +1,160 @@
-<p>item-request-add works!</p>
+<div class="request-add-container">
+  <div class="request-add-card">
+    <h2>Add New Item Request</h2>
+    <div class="accent-line"></div>
+    <form
+      [formGroup]="requestForm"
+      (ngSubmit)="onSubmit()"
+      class="request-form"
+    >
+      <!-- Item Name (now a select dropdown) -->
+      <div class="form-group">
+        <label for="itemName">Item Name</label>
+        <select
+          id="itemName"
+          formControlName="itemName"
+          [class.invalid]="
+            itemName?.invalid && (itemName?.dirty || itemName?.touched)
+          "
+        >
+          <option value="">Select an item</option>
+          <option *ngFor="let item of items" [value]="item.name">
+            {{ item.name }} (Available: {{ item.quantityAvailable }})
+          </option>
+        </select>
+        <div
+          *ngIf="itemName?.invalid && (itemName?.dirty || itemName?.touched)"
+          class="error-message"
+        >
+          <small *ngIf="itemName?.errors?.['required']"
+            >Item name is required</small
+          >
+        </div>
+      </div>
+
+      <!-- Quantity Required -->
+      <div class="form-group">
+        <label for="quantityRequired">Quantity</label>
+        <input
+          type="number"
+          id="quantityRequired"
+          formControlName="quantityRequired"
+          [class.invalid]="
+            quantityRequired?.invalid &&
+            (quantityRequired?.dirty || quantityRequired?.touched)
+          "
+        />
+        <div
+          *ngIf="
+            quantityRequired?.invalid &&
+            (quantityRequired?.dirty || quantityRequired?.touched)
+          "
+          class="error-message"
+        >
+          <small *ngIf="quantityRequired?.errors?.['required']"
+            >Quantity is required</small
+          >
+          <small *ngIf="quantityRequired?.errors?.['min']"
+            >Quantity must be greater than 0</small
+          >
+        </div>
+      </div>
+
+      <!-- Department -->
+      <div class="form-group">
+        <label for="department">Department</label>
+        <select
+          id="department"
+          formControlName="department"
+          [class.invalid]="
+            department?.invalid && (department?.dirty || department?.touched)
+          "
+        >
+          <option value="">Select Department</option>
+          <option *ngFor="let dept of departments" [value]="dept">
+            {{ dept }}
+          </option>
+        </select>
+        <div
+          *ngIf="
+            department?.invalid && (department?.dirty || department?.touched)
+          "
+          class="error-message"
+        >
+          <small *ngIf="department?.errors?.['required']"
+            >Department is required</small
+          >
+        </div>
+      </div>
+
+      <!-- Purpose -->
+      <div class="form-group">
+        <label for="purpose">Purpose</label>
+        <textarea
+          id="purpose"
+          formControlName="purpose"
+          [class.invalid]="
+            purpose?.invalid && (purpose?.dirty || purpose?.touched)
+          "
+        ></textarea>
+        <div
+          *ngIf="purpose?.invalid && (purpose?.dirty || purpose?.touched)"
+          class="error-message"
+        >
+          <small *ngIf="purpose?.errors?.['required']"
+            >Purpose is required</small
+          >
+          <small *ngIf="purpose?.errors?.['minlength']"
+            >Purpose must be at least 10 characters</small
+          >
+        </div>
+      </div>
+
+      <!-- Requestor Name -->
+      <div class="form-group">
+        <label for="requestorName">Username</label>
+        <input
+          type="text"
+          id="requestorName"
+          formControlName="requestorName"
+          class="disabled-field"
+          [class.invalid]="
+            requestorName?.invalid &&
+            (requestorName?.dirty || requestorName?.touched)
+          "
+        />
+        <div
+          *ngIf="
+            requestorName?.invalid &&
+            (requestorName?.dirty || requestorName?.touched)
+          "
+          class="error-message"
+        >
+          <small *ngIf="requestorName?.errors?.['required']"
+            >Your username is required</small
+          >
+        </div>
+      </div>
+
+      <!-- Requestor Contact (Optional) -->
+      <div class="form-group">
+        <label for="requestorContact">Contact Information</label>
+        <input
+          type="text"
+          id="requestorContact"
+          formControlName="requestorContact"
+        />
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        [disabled]="requestForm.invalid || isSubmitting"
+        class="submit-button"
+      >
+        <span *ngIf="!isSubmitting">Add Request</span>
+        <span *ngIf="isSubmitting" class="loader"></span>
+      </button>
+    </form>
+  </div>
+</div>

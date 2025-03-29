@@ -27,6 +27,8 @@ export class ItemUpdateComponent implements OnInit {
     'Software',
     'Hardware',
   ];
+  isSubmitting = false;
+  formError = '';
 
   constructor(
     private fb: FormBuilder,
@@ -77,7 +79,9 @@ export class ItemUpdateComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.formError = '';
     if (this.itemForm.valid && this.itemId) {
+      this.isSubmitting = true;
       const updatedItem: Item = {
         id: this.itemId,
         ...this.itemForm.value,
@@ -85,10 +89,14 @@ export class ItemUpdateComponent implements OnInit {
 
       this.itemService.updateItem(updatedItem).subscribe({
         next: () => {
+          this.isSubmitting = false;
           this.router.navigate(['/items']);
         },
         error: (err) => {
+          this.isSubmitting = false;
           console.error('Error updating item', err);
+          this.formError =
+            err.error?.message || 'Failed to update item. Please try again.';
         },
       });
     }

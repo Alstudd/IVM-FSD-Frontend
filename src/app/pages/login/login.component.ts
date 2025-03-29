@@ -28,10 +28,15 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Check if user is already logged in
+    // Check if user is already logged in and user is Admin or Manager then dashboard else item-requests
     if (this.authService.isLoggedIn()) {
-      this.router.navigate(['/dashboard']);
-    }
+      const currentUser = this.authService.getCurrentUser();
+      if (currentUser && (currentUser.role === 'ADMIN' || currentUser.role === 'MANAGER')) {
+        this.router.navigate(['/dashboard']);
+      } else if (currentUser && currentUser.role === 'USER') {
+        this.router.navigate(['/item-requests']);
+      }
+    } 
   }
 
   onSubmit() {
@@ -53,7 +58,7 @@ export class LoginComponent implements OnInit {
           if (role == 'ADMIN' || role == 'MANAGER') {
             this.router.navigate(['/dashboard']);
           } else {
-            this.router.navigate(['/request']);
+            this.router.navigate(['/item-requests']);
           }
         } else {
           this.loginError = true;

@@ -229,7 +229,7 @@ import { FormsModule } from '@angular/forms';
       }
 
       .edit-btn {
-        background-color: #2ecc71;
+        background-color: #ff6b00;
         color: white;
       }
 
@@ -330,15 +330,17 @@ export class ItemDetailComponent implements OnInit {
   }
 
   deleteItem(): void {
-    if (this.item && (this.isAdmin || this.isManager)) {
-      this.itemService.deleteItem(this.item.id!).subscribe({
-        next: () => {
-          this.router.navigate(['/items']);
-        },
-        error: (err) => {
-          console.error('Error deleting item', err);
-        },
-      });
+    if (confirm('Are you sure you want to delete this item?')) {
+      if (this.item && (this.isAdmin || this.isManager)) {
+        this.itemService.deleteItem(this.item.id!).subscribe({
+          next: () => {
+            this.router.navigate(['/items']);
+          },
+          error: (err) => {
+            console.error('Error deleting item', err);
+          },
+        });
+      }
     }
   }
 }

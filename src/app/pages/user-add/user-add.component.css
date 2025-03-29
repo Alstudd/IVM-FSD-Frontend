@@ -1,4 +1,4 @@
-.update-item-container {
+.user-add-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -6,7 +6,7 @@
   padding: 1rem;
 }
 
-.update-item-card {
+.user-add-card {
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 10px 30px rgba(255, 107, 0, 0.08),
@@ -17,13 +17,13 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.update-item-card:hover {
+.user-add-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 15px 35px rgba(255, 107, 0, 0.12),
     0 10px 20px rgba(0, 0, 0, 0.07);
 }
 
-.update-item-card h2 {
+.user-add-header h2 {
   text-align: center;
   color: #ff6b00;
   margin-bottom: 0.5rem;
@@ -37,7 +37,7 @@
   margin: 0 auto;
 }
 
-.item-form {
+.user-form {
   display: flex;
   flex-direction: column;
 }
@@ -77,6 +77,22 @@
   color: #d32f2f;
   font-size: 0.8rem;
   margin-top: 0.25rem;
+}
+
+.error-banner {
+  background-color: rgba(255, 77, 79, 0.1);
+  border-left: 4px solid #ff4d4f;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #cf1322;
+}
+
+.error-icon {
+  font-size: 1.2rem;
 }
 
 .submit-button {
@@ -130,11 +146,11 @@
 }
 
 @media (max-width: 768px) {
-  .update-item-container {
+  .user-add-container {
     padding: 1rem;
   }
 
-  .update-item-card {
+  .user-add-card {
     padding: 1.5rem;
   }
 }

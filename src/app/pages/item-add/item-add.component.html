@@ -1,6 +1,7 @@
 <div class="add-item-container">
   <div class="add-item-card">
     <h2>Add New Item</h2>
+    <div class="accent-line"></div>
 
     <form [formGroup]="itemForm" (ngSubmit)="onSubmit()" class="item-form">
       <!-- Item Name -->
@@ -91,8 +92,13 @@
       </div>
 
       <!-- Submit Button -->
-      <button type="submit" [disabled]="itemForm.invalid" class="submit-button">
-        Add Item
+      <button
+        type="submit"
+        [disabled]="itemForm.invalid || isSubmitting"
+        class="submit-button"
+      >
+        <span *ngIf="!isSubmitting">Add Item</span>
+        <span *ngIf="isSubmitting" class="loader"></span>
       </button>
     </form>
   </div>

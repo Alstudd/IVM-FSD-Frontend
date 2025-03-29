@@ -14,7 +14,7 @@ import { AuthService } from '../../services/auth.service';
   selector: 'app-item-add',
   templateUrl: './item-add.component.html',
   styleUrls: ['./item-add.component.css'],
-  // standalone: true,
+  standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
 })
 export class ItemAddComponent implements OnInit {
@@ -26,6 +26,8 @@ export class ItemAddComponent implements OnInit {
     'Software',
     'Hardware',
   ];
+  isSubmitting = false;
+  formError = '';
 
   constructor(
     private fb: FormBuilder,
@@ -51,15 +53,19 @@ export class ItemAddComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.formError = '';
     if (this.itemForm.valid) {
+      this.isSubmitting = true;
       this.itemService.addItem(this.itemForm.value).subscribe({
         next: () => {
-          // Show success message or toast
+          this.isSubmitting = false;
           this.router.navigate(['/items']);
         },
         error: (err) => {
+          this.isSubmitting = false;
           console.error('Error adding item', err);
-          // Handle error (show error message)
+          this.formError =
+            err.error?.message || 'Failed to add item. Please try again.';
         },
       });
     }

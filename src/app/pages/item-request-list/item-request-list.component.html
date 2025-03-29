@@ -1,1 +1,121 @@
-<p>item-request-list works!</p>
+<div class="request-list-container">
+  <div class="request-list-header">
+    <h1>Item Requests</h1>
+    <div class="header-actions">
+      <button class="action-btn create-btn" (click)="navigateToCreateRequest()">
+        + Add New Request
+      </button>
+    </div>
+  </div>
+
+  <div class="stats-cards">
+    <div class="stats-card">
+      <div class="stats-icon">🧑‍💻</div>
+      <div class="stats-info">
+        <h3>Pending Requests</h3>
+        <p>{{ statusCounts["PENDING"] || 0 }}</p>
+      </div>
+    </div>
+    <div class="stats-card">
+      <div class="stats-icon">✅</div>
+      <div class="stats-info">
+        <h3>Approved Requests</h3>
+        <p>{{ statusCounts["APPROVED"] || 0 }}</p>
+      </div>
+    </div>
+    <div class="stats-card">
+      <div class="stats-icon">❌</div>
+      <div class="stats-info">
+        <h3>Rejected Requests</h3>
+        <p>{{ statusCounts["REJECTED"] || 0 }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <div class="filter-title">
+      <h3>Filters</h3>
+      <button class="reset-btn" (click)="resetFilters()">Reset</button>
+    </div>
+    <div class="filter-form">
+      <div class="filter-group">
+        <label>Filter by Status:</label>
+        <select
+          [(ngModel)]="filterOptions.status"
+          (change)="applyFilters()"
+          class="filter-select"
+        >
+          <option value="">All Statuses</option>
+          <option value="PENDING">Pending</option>
+          <option value="APPROVED">Approved</option>
+          <option value="REJECTED">Rejected</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Filter by Department:</label>
+        <select
+          [(ngModel)]="filterOptions.department"
+          (change)="applyFilters()"
+          class="filter-select"
+        >
+          <option value="">All Departments</option>
+          <option *ngFor="let dept of departments" [value]="dept">
+            {{ dept }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="request-list">
+    <div
+      *ngFor="let request of filteredRequests"
+      class="request-card"
+      [ngClass]="getStatusClass(request.status)"
+    >
+      <div class="request-header">
+        <h3>{{ request.itemName }}</h3>
+        <span class="status-badge">{{ request.status }}</span>
+      </div>
+      <div class="request-details">
+        <p><strong>Quantity:</strong> {{ request.quantityRequired }}</p>
+        <p><strong>Department:</strong> {{ request.department }}</p>
+        <p><strong>Purpose:</strong> {{ request.purpose }}</p>
+        <p><strong>Requestor:</strong> {{ request.requestorName }}</p>
+      </div>
+      <div class="request-actions">
+        <button
+          *ngIf="isAdminOrManager && request.status === 'PENDING'"
+          class="action-btn approve-btn"
+          (click)="approveRequest(request.id)"
+        >
+          Approve
+        </button>
+        <button
+          *ngIf="isAdminOrManager && request.status === 'PENDING'"
+          class="action-btn reject-btn"
+          (click)="rejectRequest(request.id)"
+        >
+          Reject
+        </button>
+        <button
+          *ngIf="
+            (isAdminOrManager && request.status === 'PENDING') ||
+            (!isAdminOrManager && request.status === 'PENDING')
+          "
+          class="action-btn edit-btn"
+          (click)="navigateToEditRequest(request.id)"
+        >
+          Edit
+        </button>
+        <button
+          *ngIf="isAdminOrManager"
+          class="action-btn delete-btn"
+          (click)="deleteRequest(request.id)"
+        >
+          🗑️
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

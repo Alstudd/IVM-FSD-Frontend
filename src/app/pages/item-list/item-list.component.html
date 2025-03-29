@@ -1,0 +1,108 @@
+<div class="inventory-dashboard">
+  <div class="dashboard-header">
+    <h1 style="color: #ff6b00">Inventory Items</h1>
+    <div class="header-actions">
+      <div class="search-container">
+        <input
+          type="text"
+          placeholder="Search items..."
+          [(ngModel)]="searchTerm"
+          (input)="applyFilters()"
+          class="search-input"
+        />
+        <i class="search-icon">🔍</i>
+      </div>
+      <button
+        *ngIf="isAdmin || isManager"
+        class="add-item-button"
+        (click)="addNewItem()"
+      >
+        + Add New Item
+      </button>
+    </div>
+  </div>
+
+  <div class="filters-section">
+    <div class="filter-group">
+      <select
+        [(ngModel)]="selectedCategory"
+        (change)="applyFilters()"
+        class="category-filter"
+      >
+        <option value="">All Categories</option>
+        <option *ngFor="let category of categories" [value]="category">
+          {{ category }}
+        </option>
+      </select>
+
+      <div class="stock-toggle">
+        <input
+          type="checkbox"
+          id="lowStockToggle"
+          [(ngModel)]="lowStockFilter"
+          (change)="applyFilters()"
+        />
+        <label for="lowStockToggle">Low Stock Only</label>
+      </div>
+    </div>
+
+    <div class="category-stats">
+      <div *ngFor="let stat of categoryCounts | keyvalue" class="stat-badge">
+        {{ stat.key }}: {{ stat.value }}
+      </div>
+    </div>
+  </div>
+
+  <div class="items-grid">
+    <div
+      *ngFor="let item of filteredItems"
+      class="item-card"
+      (click)="viewItemDetails(item)"
+    >
+      <div class="item-card-header">
+        <h3>{{ item.name }}</h3>
+        <span
+          class="stock-indicator"
+          [ngClass]="{
+            'high-stock': item.quantityAvailable >= 20,
+            'medium-stock':
+              item.quantityAvailable >= 10 && item.quantityAvailable < 20,
+            'low-stock': item.quantityAvailable < 10
+          }"
+        >
+          {{ item.quantityAvailable }} in Stock
+        </span>
+      </div>
+
+      <div class="item-card-body">
+        <div class="item-detail">
+          <span class="label">Category</span>
+          <span class="value">{{ item.category }}</span>
+        </div>
+        <div class="item-detail">
+          <span class="label">Vendor</span>
+          <span class="value">{{ item.vendorName || "N/A" }}</span>
+        </div>
+      </div>
+
+      <div class="item-card-footer">
+        <div class="action-buttons">
+          <button
+            *ngIf="isAdmin || isManager"
+            class="edit-btn"
+            (click)="editItem(item); $event.stopPropagation()"
+          >
+            Edit
+          </button>
+          <button
+            *ngIf="isAdmin || isManager"
+            class="delete-btn"
+            (click)="deleteItem(item.id); $event.stopPropagation()"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
