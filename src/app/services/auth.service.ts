@@ -21,7 +21,7 @@ export interface LoginRequest {
 })
 export class AuthService {
   private currentUserSubject: BehaviorSubject<User | null>;
-  private apiUrl = 'http://localhost:8080/api/auth';
+  private apiUrl = 'https://inventory-management-backend-1-mdjq.onrender.com/api/auth';
 
   constructor(private http: HttpClient) {
     // Initialize currentUserSubject from localStorage

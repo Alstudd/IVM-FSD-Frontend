@@ -19,7 +19,7 @@ export interface ItemRequest {
   providedIn: 'root',
 })
 export class RequestService {
-  private apiUrl = 'http://localhost:8080/api/requests';
+  private apiUrl = 'https://inventory-management-backend-1-mdjq.onrender.com/api/requests';
 
   constructor(private http: HttpClient) {}
 

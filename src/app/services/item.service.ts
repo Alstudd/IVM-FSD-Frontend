@@ -17,7 +17,7 @@ export interface Item {
   providedIn: 'root',
 })
 export class ItemService {
-  private apiUrl = 'http://localhost:8080/api/items';
+  private apiUrl = 'https://inventory-management-backend-1-mdjq.onrender.com/api/items';
 
   constructor(private http: HttpClient) {}
 
